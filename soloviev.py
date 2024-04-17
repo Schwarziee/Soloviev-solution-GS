@@ -6,9 +6,9 @@ from matplotlib.widgets import Slider
 x = np.linspace(-2, 2, 100)
 y = np.linspace(-2, 2, 100)
 
-inite= 0.33
-initau=-0.5
-initsigma=1
+inite = 0.33
+initau = -0.5
+initsigma = 1
 
 # Create a meshgrid for x and y
 x, y = np.meshgrid(x, y)
@@ -35,7 +35,7 @@ def update(val):
     if contour:
         for coll in contour.collections:
             coll.remove()
-    contour = ax.contour(x, y, z, levels=50, colors='black')
+    contour = ax.contour(x, y, z, levels=np.linspace(0, 1.5, 50), colors='black')
     ax.figure.canvas.draw_idle()
 
 # Create sliders for parameters
@@ -56,7 +56,7 @@ slider_sigma.on_changed(update)
 z_initial = psi2(x, y, slider_e.val, slider_tau.val, slider_sigma.val)
 
 # Plot the initial contour
-contour = ax.contour(x, y, z_initial, levels=50, colors='black')
+contour = ax.contour(x, y, z_initial, levels=np.linspace(0, 1.5, 50), colors='black')
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_title('Contour plot of psi2(x, y)')
