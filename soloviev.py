@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 
 # Define the range for x and y
-x = np.linspace(-2, 2, 100)
-y = np.linspace(-2, 2, 100)
+x = np.linspace(-1.5, 1.5, 100)
+y = np.linspace(-1.5, 1.5, 100)
 
 inite = 0.33
-initau = -0.5
+initau = 0
 initsigma = 1
 z0=10
 
@@ -46,7 +46,7 @@ slider_ax_tau = plt.axes([0.1, 0.05, 0.65, 0.03])
 slider_ax_sigma = plt.axes([0.1, 0.15, 0.65, 0.03])
 
 slider_e = Slider(slider_ax_e, 'e', 0.1, 1.0, valinit=inite)
-slider_tau = Slider(slider_ax_tau, 'tau', -1.0, 1.0, valinit=initau)
+slider_tau = Slider(slider_ax_tau, 'tau', -1.0, 3.0, valinit=initau)
 slider_sigma = Slider(slider_ax_sigma, 'sigma', 0.1, 2.0, valinit=initsigma)
 
 slider_e.on_changed(update)
@@ -58,6 +58,13 @@ z_initial = psi2(x, y, slider_e.val, slider_tau.val, slider_sigma.val)
 
 # Plot the initial contour
 contour = ax.contour(x, y, z_initial, levels=np.linspace(0, 1, z0), colors='black')
+
+
+
+ratio = 1.0
+x_left, x_right = ax.get_xlim()
+y_low, y_high = ax.get_ylim()
+ax.set_aspect(abs((x_right-x_left)/(y_low-y_high))*ratio)
 ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_title('Contour plot of psi2(x, y)')
